@@ -6,9 +6,9 @@
  */
 
 import * as splToken from "@solana/spl-token";
-import * as definedTypes from "../types";
 import * as beet from "@metaplex-foundation/beet";
 import * as web3 from "@solana/web3.js";
+import { AddMemberArgs, addMemberArgsBeet } from "../types/AddMemberArgs";
 
 /**
  * @category Instructions
@@ -16,7 +16,7 @@ import * as web3 from "@solana/web3.js";
  * @category generated
  */
 export type ProcessAddMemberWalletInstructionArgs = {
-  args: definedTypes.AddMemberArgs;
+  args: AddMemberArgs;
 };
 /**
  * @category Instructions
@@ -30,7 +30,7 @@ const processAddMemberWalletStruct = new beet.BeetArgsStruct<
 >(
   [
     ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
-    ["args", definedTypes.addMemberArgsBeet],
+    ["args", addMemberArgsBeet],
   ],
   "ProcessAddMemberWalletInstructionArgs"
 );
@@ -111,7 +111,7 @@ export function createProcessAddMemberWalletInstruction(
 
   const ix = new web3.TransactionInstruction({
     programId: new web3.PublicKey(
-      "AwAY5hd99UhrrPEBapahSEW2tXBQTFVvHpd3sVmaDWfA"
+      "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg"
     ),
     keys,
     data,

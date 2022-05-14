@@ -3,12 +3,18 @@
 
 // NOTE: ideally we'd rename the anchor program to gumdrop
 const PROGRAM_NAME = "hydra";
-const PROGRAM_ID = "AwAY5hd99UhrrPEBapahSEW2tXBQTFVvHpd3sVmaDWfA";
+const PROGRAM_ID = "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg";
 
 const path = require("path");
-const programDir = path.join(__dirname,  "..", "programs/hydra");
+const programDir = path.join(__dirname, "..", "programs/hydra");
 const generatedIdlDir = path.join(__dirname, "..", "target", "idl");
-const generatedSDKDir = path.join(__dirname, "..","packages/sdk", "src", "generated");
+const generatedSDKDir = path.join(
+  __dirname,
+  "..",
+  "packages/sdk",
+  "src",
+  "generated"
+);
 const { spawn } = require("child_process");
 const { Solita } = require("@metaplex-foundation/solita");
 const { writeFile } = require("fs/promises");

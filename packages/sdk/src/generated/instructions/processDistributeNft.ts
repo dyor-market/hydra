@@ -164,7 +164,7 @@ export function createProcessDistributeNftInstruction(
 
   const ix = new web3.TransactionInstruction({
     programId: new web3.PublicKey(
-      "AwAY5hd99UhrrPEBapahSEW2tXBQTFVvHpd3sVmaDWfA"
+      "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg"
     ),
     keys,
     data,

@@ -45,6 +45,7 @@ export type ProcessTransferSharesInstructionAccounts = {
   fanout: web3.PublicKey;
   fromMembershipAccount: web3.PublicKey;
   toMembershipAccount: web3.PublicKey;
+  instructions: web3.PublicKey;
 };
 
 const processTransferSharesInstructionDiscriminator = [
@@ -72,6 +73,7 @@ export function createProcessTransferSharesInstruction(
     fanout,
     fromMembershipAccount,
     toMembershipAccount,
+    instructions,
   } = accounts;
 
   const [data] = processTransferSharesStruct.serialize({
@@ -109,11 +111,16 @@ export function createProcessTransferSharesInstruction(
       isWritable: false,
       isSigner: false,
     },
+    {
+      pubkey: instructions,
+      isWritable: false,
+      isSigner: false,
+    },
   ];
 
   const ix = new web3.TransactionInstruction({
     programId: new web3.PublicKey(
-      "AwAY5hd99UhrrPEBapahSEW2tXBQTFVvHpd3sVmaDWfA"
+      "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg"
     ),
     keys,
     data,

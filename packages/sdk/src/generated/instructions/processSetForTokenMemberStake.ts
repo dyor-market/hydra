@@ -11,65 +11,87 @@ import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
- * @category ProcessUnstake
+ * @category ProcessSetForTokenMemberStake
  * @category generated
  */
-const processUnstakeStruct = new beet.BeetArgsStruct<{
-  instructionDiscriminator: number[] /* size: 8 */;
-}>(
-  [["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)]],
-  "ProcessUnstakeInstructionArgs"
+export type ProcessSetForTokenMemberStakeInstructionArgs = {
+  shares: beet.bignum;
+};
+/**
+ * @category Instructions
+ * @category ProcessSetForTokenMemberStake
+ * @category generated
+ */
+const processSetForTokenMemberStakeStruct = new beet.BeetArgsStruct<
+  ProcessSetForTokenMemberStakeInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
+>(
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["shares", beet.u64],
+  ],
+  "ProcessSetForTokenMemberStakeInstructionArgs"
 );
 /**
- * Accounts required by the _processUnstake_ instruction
+ * Accounts required by the _processSetForTokenMemberStake_ instruction
  * @category Instructions
- * @category ProcessUnstake
+ * @category ProcessSetForTokenMemberStake
  * @category generated
  */
-export type ProcessUnstakeInstructionAccounts = {
+export type ProcessSetForTokenMemberStakeInstructionAccounts = {
+  authority: web3.PublicKey;
   member: web3.PublicKey;
   fanout: web3.PublicKey;
   membershipVoucher: web3.PublicKey;
   membershipMint: web3.PublicKey;
   membershipMintTokenAccount: web3.PublicKey;
   memberStakeAccount: web3.PublicKey;
-  instructions: web3.PublicKey;
 };
 
-const processUnstakeInstructionDiscriminator = [
-  217, 160, 136, 174, 149, 62, 79, 133,
+const processSetForTokenMemberStakeInstructionDiscriminator = [
+  210, 40, 6, 254, 2, 80, 154, 109,
 ];
 
 /**
- * Creates a _ProcessUnstake_ instruction.
+ * Creates a _ProcessSetForTokenMemberStake_ instruction.
  *
  * @param accounts that will be accessed while the instruction is processed
+ * @param args to provide as instruction data to the program
  *
  * @category Instructions
- * @category ProcessUnstake
+ * @category ProcessSetForTokenMemberStake
  * @category generated
  */
-export function createProcessUnstakeInstruction(
-  accounts: ProcessUnstakeInstructionAccounts
+export function createProcessSetForTokenMemberStakeInstruction(
+  accounts: ProcessSetForTokenMemberStakeInstructionAccounts,
+  args: ProcessSetForTokenMemberStakeInstructionArgs
 ) {
   const {
+    authority,
     member,
     fanout,
     membershipVoucher,
     membershipMint,
     membershipMintTokenAccount,
     memberStakeAccount,
-    instructions,
   } = accounts;
 
-  const [data] = processUnstakeStruct.serialize({
-    instructionDiscriminator: processUnstakeInstructionDiscriminator,
+  const [data] = processSetForTokenMemberStakeStruct.serialize({
+    instructionDiscriminator:
+      processSetForTokenMemberStakeInstructionDiscriminator,
+    ...args,
   });
   const keys: web3.AccountMeta[] = [
     {
-      pubkey: member,
+      pubkey: authority,
       isWritable: true,
       isSigner: true,
+    },
+    {
+      pubkey: member,
+      isWritable: false,
+      isSigner: false,
     },
     {
       pubkey: fanout,
@@ -103,11 +125,6 @@ export function createProcessUnstakeInstruction(
     },
     {
       pubkey: splToken.TOKEN_PROGRAM_ID,
-      isWritable: false,
-      isSigner: false,
-    },
-    {
-      pubkey: instructions,
       isWritable: false,
       isSigner: false,
     },
