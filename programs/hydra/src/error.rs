@@ -59,6 +59,7 @@ pub enum HydraError {
 
     DerivedKeyInvalid,
 
+    #[msg("bad owner")]
     IncorrectOwner,
 
     #[msg("Wallet Does not Own Membership Token")]

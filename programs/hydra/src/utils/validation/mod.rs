@@ -32,9 +32,9 @@ pub fn assert_owned_by(account: &AccountInfo, owner: &Pubkey) -> Result<()> {
     }
 }
 
-pub fn assert_owned_by_or_owned_by(account: &AccountInfo, owner: &Pubkey, or_owner: &Pubkey) -> ProgramResult {
+pub fn assert_owned_by_or_owned_by(account: &AccountInfo, owner: &Pubkey, or_owner: &Pubkey) -> Result<()>  {
     if account.owner != owner || account.owner != or_owner {
-        Err(ErrorCode::IncorrectOwner.into())
+        Err(HydraError::IncorrectOwner.into())
     } else {
         Ok(())
     }

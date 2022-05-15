@@ -13,5 +13,5 @@ solana-sdk = "1.9.15"
 clap = "2.33.0"
 solana-clap-utils = "1.9.15"
 solana-cli-config = "1.9.15"
-hydra_wallet = { path = "../../programs/hydra" }
+hydra = { path = "../../programs/hydra" }
 solana-account-decoder = "1.9.15"
