@@ -11,7 +11,7 @@ const remoteDeployDir = path.join(
 
 const programIds = {
   metadata: "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
-  fanout: "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg",
+  fanout: "DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9",
 };
 
 function localDeployPath(dir, programName) {

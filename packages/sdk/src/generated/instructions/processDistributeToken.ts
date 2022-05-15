@@ -171,7 +171,7 @@ export function createProcessDistributeTokenInstruction(
 
   const ix = new web3.TransactionInstruction({
     programId: new web3.PublicKey(
-      "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg"
+      "DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9"
     ),
     keys,
     data,

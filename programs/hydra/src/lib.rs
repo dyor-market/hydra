@@ -7,7 +7,7 @@ use anchor_lang::prelude::*;
 use processors::*;
 use state::MembershipModel;
 
-declare_id!("hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg");
+declare_id!("DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9");
 #[program]
 pub mod hydra {
     use super::*;

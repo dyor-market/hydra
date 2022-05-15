@@ -1,10 +1,11 @@
 [programs.localnet]
-hydra = "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg"
+hydra = "DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9"
 
 [programs.devnet]
-hydra = "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg"
+hydra = "DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9"
 
-
+[programs.mainnet]
+hydra = "DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9"
 [registry]
 url = "https://anchor.projectserum.com"
 

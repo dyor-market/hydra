@@ -11,11 +11,11 @@ Hydra is a wallet of wallets, a fanout wallet if you will. It enables extremely 
 :::warning
 The PROGRAM ID FOR Hydra is:
 
-Devnet: hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg
+Devnet: DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9
 
 Testnet: Do you want this?
 
-Mainnet: hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg
+Mainnet: DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9
 :::
 
 ## Basic Flow

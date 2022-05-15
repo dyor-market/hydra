@@ -3,7 +3,7 @@
 
 // NOTE: ideally we'd rename the anchor program to gumdrop
 const PROGRAM_NAME = "hydra";
-const PROGRAM_ID = "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg";
+const PROGRAM_ID = "DtvtjfmqH3yrPbTyxCjzpPdZwkcAcUu1edwPThkmLxv9";
 
 const path = require("path");
 const programDir = path.join(__dirname, "..", "programs/hydra");
