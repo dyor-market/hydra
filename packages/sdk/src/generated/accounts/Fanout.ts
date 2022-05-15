@@ -26,6 +26,7 @@ export type FanoutArgs = {
   bumpSeed: number;
   accountOwnerBumpSeed: number;
   totalAvailableShares: beet.bignum;
+  payerRewardBasisPoints: beet.bignum;
   membershipModel: MembershipModel;
   membershipMint: beet.COption<web3.PublicKey>;
   totalStakedShares: beet.COption<beet.bignum>;
@@ -51,6 +52,7 @@ export class Fanout implements FanoutArgs {
     readonly bumpSeed: number,
     readonly accountOwnerBumpSeed: number,
     readonly totalAvailableShares: beet.bignum,
+    readonly payerRewardBasisPoints: beet.bignum,
     readonly membershipModel: MembershipModel,
     readonly membershipMint: beet.COption<web3.PublicKey>,
     readonly totalStakedShares: beet.COption<beet.bignum>
@@ -71,6 +73,7 @@ export class Fanout implements FanoutArgs {
       args.bumpSeed,
       args.accountOwnerBumpSeed,
       args.totalAvailableShares,
+      args.payerRewardBasisPoints,
       args.membershipModel,
       args.membershipMint,
       args.totalStakedShares
@@ -174,6 +177,7 @@ export class Fanout implements FanoutArgs {
       bumpSeed: this.bumpSeed,
       accountOwnerBumpSeed: this.accountOwnerBumpSeed,
       totalAvailableShares: this.totalAvailableShares,
+      payerRewardBasisPoints: this.payerRewardBasisPoints,
       membershipModel:
         "MembershipModel." + MembershipModel[this.membershipModel],
       membershipMint: this.membershipMint,
@@ -204,6 +208,7 @@ export const fanoutBeet = new beet.FixableBeetStruct<
     ["bumpSeed", beet.u8],
     ["accountOwnerBumpSeed", beet.u8],
     ["totalAvailableShares", beet.u64],
+    ["payerRewardBasisPoints", beet.u64],
     ["membershipModel", membershipModelBeet],
     ["membershipMint", beet.coption(beetSolana.publicKey)],
     ["totalStakedShares", beet.coption(beet.u64)],

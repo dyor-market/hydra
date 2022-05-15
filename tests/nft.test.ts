@@ -49,6 +49,7 @@ describe("fanout", async () => {
           totalShares: 100,
           name: `Test${Date.now()}`,
           membershipModel: MembershipModel.NFT,
+          payerRewardBasisPoints: 666
         });
 
         const fanoutAccount = await fanoutSdk.fetch<Fanout>(fanout, Fanout);
@@ -67,6 +68,7 @@ describe("fanout", async () => {
           totalShares: 100,
           name: `Test${Date.now()}`,
           membershipModel: MembershipModel.NFT,
+          payerRewardBasisPoints: 666
         });
         const mint = await Token.createMint(
           connection,
@@ -104,6 +106,7 @@ describe("fanout", async () => {
           totalShares: 100,
           name: `Test${Date.now()}`,
           membershipModel: MembershipModel.NFT,
+          payerRewardBasisPoints: 666
         });
         const initMetadataData = new DataV2({
           uri: "URI",
@@ -155,6 +158,7 @@ describe("fanout", async () => {
           totalShares: 100,
           name: `Test${Date.now()}`,
           membershipModel: MembershipModel.NFT,
+          payerRewardBasisPoints: 666
         });
         const initMetadataData = new DataV2({
           uri: "URI",
@@ -341,12 +345,15 @@ describe("fanout", async () => {
         fanout: builtFanout.fanout,
         payer: fanoutSdk.wallet.publicKey,
         mint: NATIVE_MINT,
+        authority: authorityWallet.publicKey,
+        payerTokenAccount: NATIVE_MINT
       });
       const memberDataAfterFinal1 = await connection.getAccountInfo(
         member1.wallet.publicKey
       );
       // @ts-ignore
       expect(memberDataAfterFinal1?.lamports).to.equal(
+        // @ts-ignore
         memberDataAfter1?.lamports + secondInflow * 0.2
       );
       const membershipAccountFinal1 =
@@ -356,6 +363,7 @@ describe("fanout", async () => {
         );
       // @ts-ignore
       expect(membershipAccountFinal1?.totalInflow.toString()).to.equal(
+        // @ts-ignore
         `${memberDataAfter1?.lamports + secondInflow * 0.2}`
       );
     });

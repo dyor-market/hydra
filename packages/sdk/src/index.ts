@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as anchor from "@project-serum/anchor";
 import { BorshAccountsCoder, Program, Provider } from "@project-serum/anchor";
 import {
@@ -58,6 +60,7 @@ interface InitializeFanoutArgs {
   membershipModel: MembershipModel;
   totalShares: number;
   mint?: PublicKey;
+  payerRewardBasisPoints: number;
 }
 
 interface InitializeFanoutForMintArgs {
@@ -92,6 +95,8 @@ interface SignMetadataArgs {
 }
 
 interface UnstakeMemberArgs {
+  payerTokenAccount: PublicKey;
+  authority: PublicKey;
   fanout: PublicKey;
   membershipMint?: PublicKey;
   membershipMintTokenAccount?: PublicKey;
@@ -110,6 +115,8 @@ interface DistributeMemberArgs {
 }
 
 interface DistributeTokenMemberArgs {
+  authority: PublicKey;
+  payerTokenAccount?: PublicKey;
   distributeForMint: boolean;
   member: PublicKey;
   membershipMint: PublicKey;
@@ -123,6 +130,9 @@ interface DistributeAllArgs {
   fanout: PublicKey;
   mint: PublicKey;
   payer: PublicKey;
+
+  authority: PublicKey;
+  payerTokenAccount: PublicKey;
 }
 
 const MPL_TM_BUF = MetadataProgram.PUBKEY.toBuffer();
@@ -371,6 +381,7 @@ export class FanoutClient {
             nativeAccountBumpSeed: holdingAccountBumpSeed,
             totalShares: opts.totalShares,
             name: opts.name,
+            payerRewardBasisPoints: opts.payerRewardBasisPoints,
           },
           model: opts.membershipModel,
         }
@@ -866,12 +877,16 @@ export class FanoutClient {
           payer: opts.payer,
           member: opts.member,
           fanout: opts.fanout,
+          authority: opts.authority,
+          payerTokenAccount: opts.payerTokenAccount || null
         },
         {
           distributeForMint: opts.distributeForMint,
         }
       )
     );
+
+    console.log(instructions[0])
 
     return {
       output: {
@@ -888,6 +903,8 @@ export class FanoutClient {
     fanout,
     mint,
     payer,
+    payerTokenAccount,
+    authority,
   }: DistributeAllArgs): Promise<BigInstructionResult<null>> {
     const fanoutAcct = await Fanout.fromAccountAddress(this.connection, fanout);
     const members = await this.getMembers({ fanout });
@@ -903,6 +920,8 @@ export class FanoutClient {
               member,
               fanoutMint: mint,
               payer: payer,
+              authority,
+              payerTokenAccount,
             });
           case MembershipModel.Wallet:
             return this.distributeWalletMemberInstructions({
@@ -1193,7 +1212,14 @@ export class FanoutClient {
   }
 
   async unstakeTokenMember(opts: UnstakeMemberArgs) {
-    let { fanout, member, membershipMint, payer } = opts;
+    let {
+      fanout,
+      member,
+      membershipMint,
+      payer,
+      authority,
+      payerTokenAccount,
+    } = opts;
     if (!membershipMint) {
       let data = await this.fetch<Fanout>(opts.fanout, Fanout);
       membershipMint = data.membershipMint as PublicKey;
@@ -1210,6 +1236,8 @@ export class FanoutClient {
         member,
         membershipMint,
         payer,
+        authority,
+        payerTokenAccount,
       });
     await this.throwingSend(
       [...dist_ix, ...unstake_ix],

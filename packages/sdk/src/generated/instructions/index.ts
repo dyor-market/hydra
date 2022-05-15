@@ -9,4 +9,5 @@ export * from "./processSetForTokenMemberStake";
 export * from "./processSetTokenMemberStake";
 export * from "./processSignMetadata";
 export * from "./processTransferShares";
+export * from "./processTransferToHodling";
 export * from "./processUnstake";

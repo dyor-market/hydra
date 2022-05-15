@@ -296,7 +296,7 @@ createErrorFromNameLookup.set(
 );
 
 /**
- * IncorrectOwner: ''
+ * IncorrectOwner: 'bad owner'
  *
  * @category Errors
  * @category generated
@@ -305,7 +305,7 @@ export class IncorrectOwnerError extends Error {
   readonly code: number = 0x177c;
   readonly name: string = "IncorrectOwner";
   constructor() {
-    super("");
+    super("bad owner");
     if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, IncorrectOwnerError);
     }
@@ -554,6 +554,29 @@ createErrorFromCodeLookup.set(0x1786, () => new RemoveNotSupportedError());
 createErrorFromNameLookup.set(
   "RemoveNotSupported",
   () => new RemoveNotSupportedError()
+);
+
+/**
+ * PayerATANotSupplied: 'Payer Associated Token Account must be supplied'
+ *
+ * @category Errors
+ * @category generated
+ */
+export class PayerATANotSuppliedError extends Error {
+  readonly code: number = 0x1787;
+  readonly name: string = "PayerATANotSupplied";
+  constructor() {
+    super("Payer Associated Token Account must be supplied");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, PayerATANotSuppliedError);
+    }
+  }
+}
+
+createErrorFromCodeLookup.set(0x1787, () => new PayerATANotSuppliedError());
+createErrorFromNameLookup.set(
+  "PayerATANotSupplied",
+  () => new PayerATANotSuppliedError()
 );
 
 /**

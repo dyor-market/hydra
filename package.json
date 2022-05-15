@@ -33,7 +33,7 @@
     "watch": "npx lerna run --parallel watch",
     "build": "npx lerna run build",
     "mega-test": "yarn run api:gen && yarn run build && yarn run amman:start && yarn test",
-    "test": "ts-mocha -p ./tsconfig.json -t 1000000 \"tests/**/*.ts\"",
+    "test": "ts-mocha -p ./tsconfig.json -t 1000000 \"tests/token*.ts\"",
     "prepare": "husky install"
   },
   "private": true,

@@ -42,6 +42,7 @@ const processDistributeTokenStruct = new beet.BeetArgsStruct<
 export type ProcessDistributeTokenInstructionAccounts = {
   payer: web3.PublicKey;
   member: web3.PublicKey;
+  authority: web3.PublicKey;
   membershipMintTokenAccount: web3.PublicKey;
   membershipVoucher: web3.PublicKey;
   fanout: web3.PublicKey;
@@ -52,6 +53,7 @@ export type ProcessDistributeTokenInstructionAccounts = {
   fanoutMintMemberTokenAccount: web3.PublicKey;
   membershipMint: web3.PublicKey;
   memberStakeAccount: web3.PublicKey;
+  payerTokenAccount: web3.PublicKey;
 };
 
 const processDistributeTokenInstructionDiscriminator = [
@@ -75,6 +77,7 @@ export function createProcessDistributeTokenInstruction(
   const {
     payer,
     member,
+    authority,
     membershipMintTokenAccount,
     membershipVoucher,
     fanout,
@@ -85,6 +88,7 @@ export function createProcessDistributeTokenInstruction(
     fanoutMintMemberTokenAccount,
     membershipMint,
     memberStakeAccount,
+    payerTokenAccount,
   } = accounts;
 
   const [data] = processDistributeTokenStruct.serialize({
@@ -94,11 +98,16 @@ export function createProcessDistributeTokenInstruction(
   const keys: web3.AccountMeta[] = [
     {
       pubkey: payer,
-      isWritable: false,
+      isWritable: true,
       isSigner: true,
     },
     {
       pubkey: member,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: authority,
       isWritable: true,
       isSigner: false,
     },
@@ -164,6 +173,11 @@ export function createProcessDistributeTokenInstruction(
     },
     {
       pubkey: memberStakeAccount,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: payerTokenAccount,
       isWritable: true,
       isSigner: false,
     },

@@ -65,7 +65,7 @@ describe("fanout", async () => {
         name: `Test${Date.now()}`,
         membershipModel: MembershipModel.Token,
         mint: membershipMint.publicKey,
-        payer_reward_basis_points: someReward
+        payerRewardBasisPoints: someReward
 
       });
       const mint = await Token.createMint(
@@ -185,28 +185,51 @@ describe("fanout", async () => {
           sent
         );
         runningTotal += sent;
-        let member = members[index];
+        //let member = members[index];
         const distBotTokenAcct =
           await membershipMint.createAssociatedTokenAccount(distBot.publicKey);
-        let ix = await fanoutSdk2.distributeToken({
+          let members = await fanoutSdk2.getMembers({fanout});
+          console.log(members)
+     
+          for (var member of members){
+            console.log(member)
+            console.log(distBotTokenAcct)
+            console.log({
+              distributeForMint: true,
+              fanoutMint: mint.publicKey,
+              membershipMint: membershipMint.publicKey,
+              fanout: fanout,
+              member: member,
+              payer: distBot.publicKey,
+              authority: authorityWallet.publicKey,
+              payerTokenAccount: distBotTokenAcct
+            })
+            var {instructions, signers} = await fanoutSdk2.distributeTokenMemberInstructions({
+              
+              distributeForMint: false,
+              membershipMint: membershipMint.publicKey,
+              fanout: fanout,
+              member: member,
+              payer: distBot.publicKey,
+              authority: authorityWallet.publicKey,
+              payerTokenAccount: distBotTokenAcct
+            });
+            await fanoutSdk2.sendInstructions(instructions, [distBot])
+
+        var {instructions, signers} = await fanoutSdk2.distributeTokenMemberInstructions({
           distributeForMint: true,
           fanoutMint: mint.publicKey,
           membershipMint: membershipMint.publicKey,
           fanout: fanout,
-          member: member.member.publicKey,
+          member: member,
           payer: distBot.publicKey,
           authority: authorityWallet.publicKey,
           payerTokenAccount: distBotTokenAcct
         });
-        let ix2 = await fanoutSdk2.distributeToken({
-          distributeForMint: false,
-          membershipMint: membershipMint.publicKey,
-          fanout: fanout,
-          member: member.member.publicKey,
-          payer: distBot.publicKey,
-          authority: authorityWallet.publicKey,
-          payerTokenAccount: distBotTokenAcct
-        });
+
+        await fanoutSdk2.sendInstructions(instructions, [distBot])
+      }
+      };
        /* // @ts-ignore
         const tx = await fanoutSdk.sendInstructions(
           ix.instructions,//[...ix.instructions, ...ix2.instructions],
@@ -220,7 +243,6 @@ describe("fanout", async () => {
           );
           console.log(txdetails, tx.RpcResponseAndContext.value.err);
         }
-        */
         const tokenAcctInfo = await connection.getTokenAccountBalance(
           member.fanoutMintTokenAccount,
           "confirmed"
@@ -239,7 +261,6 @@ describe("fanout", async () => {
         // @ts-ignore
       }
     });
-    /*
 
     it("Init", async () => {
       const membershipMint = await Token.createMint(
@@ -631,3 +652,4 @@ describe("fanout", async () => {
   */
   });
 });
+})
